@@ -1,0 +1,44 @@
+*, ul {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+h2 {
+    margin: 1rem 2rem 3rem 2rem;
+    font-size: 4rem;
+    text-align: center;
+}
+
+div {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+a {
+    /* width: 20%; */
+    padding: 1rem 2rem !important;
+    font-size: 1.5rem !important;
+}
+
+p {
+    text-align: center;
+    margin: 3rem 0 0 0;
+}
+
+span, li {
+    list-style: none;
+    font-weight: bold;
+}
+
+li {
+    display: inline;
+}
