@@ -58,6 +58,11 @@
         echo "   <span>" . 'probabilidad: '  . $probabilidad . " </span>";
         echo "   <span>" . 'elecciones: '  . $elecciones . " </span>";
         echo "   <span>" . 'personas: '  . $personas . " </span>";
+
+        $personaje = '';
+        require 'predic.php';
+        
+
     } else {
         echo " <h3>Ud esta pensando en:</h3>";
         echo "   <h2>" . $texto . " </h2>";
@@ -76,14 +81,7 @@
     echo '<a onclick="test2(' .  $nodo . ')"  class="btn btn-danger" href="preguntas.php?n=' . $nodoNo . '">CLARO QUE NO</a>';
     ?>
     </div>
-    <p>Estoy un <span>-%</span> seguro que estas pensando en <span>personaje X</span> <br> sin embargo podrias estar
-        pensando
-        en:
-    <ul>
-        <li>personaje1</li>
-        <li>personaje2</li>
-        <li>personaje3</li>
-    </ul>
+    <p>Estoy un <span>-%</span> seguro que estas pensando en <span> <?php echo $personaje; ?>  </span>
     </p>
 
     <b> </b>
