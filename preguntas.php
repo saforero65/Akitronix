@@ -15,9 +15,7 @@
     require 'conexion.php';
 
     #recoger numero del nodo
-    $costo;
-    $probabilidad;
-    $intentos;
+
     $nodo = 1;
     if (isset($_GET['n'])) {
         $nodo = $_GET['n'];
@@ -29,7 +27,7 @@
 
 
 
-    $consulta = 'SELECT texto,pregunta,costo,probabilidad,intentos FROM arbol WHERE nodo=' . $nodo . ';';
+    $consulta = 'SELECT texto,pregunta,costo,probabilidad,elecciones,personas FROM arbol WHERE nodo=' . $nodo . ';';
     $texto = '';
     $pregunta = true;
     $resultado;
@@ -42,7 +40,8 @@
                 $pregunta = $fila[1];
                 $costo = $fila[2];
                 $probabilidad = $fila[3];
-                $intentos = $fila[4];
+                $elecciones = $fila[4];
+                $personas = $fila[5];
             }
         }
     }
@@ -50,23 +49,31 @@
 
     ?>
     <?php
+
     if ($pregunta == TRUE) {
 
         echo " <h3>Pregunta:</h3>";
         echo "   <h2>" . $texto . " </h2>";
         echo "   <span>" . 'costo: ' . $costo . " </span>";
         echo "   <span>" . 'probabilidad: '  . $probabilidad . " </span>";
-        echo "   <span>" . 'intentos: '  . $intentos . " </span>";
+        echo "   <span>" . 'elecciones: '  . $elecciones . " </span>";
+        echo "   <span>" . 'personas: '  . $personas . " </span>";
     } else {
         echo " <h3>Ud esta pensando en:</h3>";
         echo "   <h2>" . $texto . " </h2>";
+
+
+        require 'posteriori.php';
+
+
         $nodo = 0;
         $nodoSi = 0;
         $nodoNo = 0;
     }
     echo "   <div>";
-    echo '<a class="btn btn-success" href="preguntas.php?n=' . $nodoSi . '">CLARO QUE SI</a>';
-    echo '<a class="btn btn-danger" href="preguntas.php?n=' . $nodoNo . '">CLARO QUE NO</a>';
+    echo '<a onclick="test(' .  $nodo . ')" class="btn btn-success" href="preguntas.php?n=' . $nodoSi . '">CLARO QUE SI</a>';
+
+    echo '<a onclick="test2(' .  $nodo . ')"  class="btn btn-danger" href="preguntas.php?n=' . $nodoNo . '">CLARO QUE NO</a>';
     ?>
     </div>
     <p>Estoy un <span>-%</span> seguro que estas pensando en <span>personaje X</span> <br> sin embargo podrias estar
@@ -79,6 +86,32 @@
     </ul>
     </p>
 
+    <b> </b>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script type="text/javascript">
+        function test(nodo) {
+            $.ajax({
+                type: 'POST',
+                url: "reporte.php",
+                data: 'nodo=' + nodo,
+                success: function(result) {
+                    $("b").text(result);
+                }
+            })
+        }
+
+        function test2(nodo) {
+            $.ajax({
+                type: 'POST',
+                url: "reporte2.php",
+                data: 'nodo=' + nodo,
+                success: function(result) {
+                    $("b").text(result);
+                }
+            })
+        }
+    </script>
 
 </body>
 

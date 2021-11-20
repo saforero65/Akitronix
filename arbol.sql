@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 19, 2021 at 05:55 AM
+-- Generation Time: Nov 20, 2021 at 02:30 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.23
 
@@ -33,33 +33,34 @@ CREATE TABLE `arbol` (
   `pregunta` tinyint(1) DEFAULT NULL,
   `costo` double DEFAULT NULL,
   `probabilidad` double DEFAULT NULL,
-  `intentos` int(11) NOT NULL
+  `elecciones` int(11) NOT NULL,
+  `personas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `arbol`
 --
 
-INSERT INTO `arbol` (`nodo`, `texto`, `pregunta`, `costo`, `probabilidad`, `intentos`) VALUES
-(1, '¿Su personaje es un Animal?', 1, 0.26, 1, 0),
-(2, '¿Su personaje habla?', 1, 0.4, 0.8, 0),
-(3, '¿Su personaje es parte de un anime?', 1, 0, 0, 0),
-(4, '¿Su personaje usa guantes?', 1, 0, 0, 10),
-(5, 'Pikachu', 0, 0.2, 0, 10),
-(6, '¿Su personaje es un ninja?', 1, 0, 0, 10),
-(7, '¿Su personaje usa guantes?', 1, 0.27, 0.75, 10),
-(8, '¿Su personaje es de los Looney Tunes?', 1, 0.33, 0.67, 10),
-(9, '¿Su personaje tiene cola larga?', 1, 0.1, 0.5, 10),
-(12, 'Naruto', 0, 0, 0, 10),
-(13, 'Gokū', 0, 0, 0, 10),
-(14, 'Mario Bros', 0, 0, 0, 10),
-(15, '¿Su personaje es inteligente?', 1, 0, 0, 10),
-(16, 'Bugs Bunny', 0, 0.4, 0, 10),
-(17, 'Mickey Mouse', 0, 0.2, 0, 10),
-(18, 'Scooby-Doo', 0, 0.1, 0, 10),
-(19, 'Pato Donald', 0, 0.1, 0, 10),
-(30, 'Rick Sánchez\r\n', 0, 0, 0, 10),
-(31, 'Homero Simpson', 0, 0, 0, 10);
+INSERT INTO `arbol` (`nodo`, `texto`, `pregunta`, `costo`, `probabilidad`, `elecciones`, `personas`) VALUES
+(1, '¿Su personaje es un Animal?', 1, 0.18571428571428, 0.73333333333333, 11, 15),
+(2, '¿Su personaje habla?', 1, 0.24545454545455, 0.72727272727273, 8, 11),
+(3, '¿Su personaje es parte de un anime?', 1, 0, 0.25, 1, 4),
+(4, '¿Su personaje usa guantes?', 1, 0.2625, 0.625, 5, 8),
+(5, 'Pikachu', 0, 0.2, 0, 0, 0),
+(6, '¿Su personaje es un ninja?', 1, 0, 1, 1, 1),
+(7, '¿Usa guantes?', 1, 0, 0.33333333333333, 1, 3),
+(8, '¿Su personaje es de los Looney Tunes?', 1, 0.36, 0.8, 4, 5),
+(9, '¿Su personaje tiene cola larga?', 1, 0.1, 0.66666666666667, 2, 3),
+(12, 'Naruto', 0, 0, 0, 0, 0),
+(13, 'Gokū', 0, 0, 0, 0, 0),
+(14, 'Mario Bros', 0, 0, 0, 0, 0),
+(15, '¿Su personaje es inteligente?', 1, 0, 0.5, 1, 2),
+(16, 'Bugs Bunny', 0, 0.4, 0, 0, 0),
+(17, 'Mickey Mouse', 0, 0.2, 0, 0, 0),
+(18, 'Scooby-Doo', 0, 0.1, 0, 0, 0),
+(19, 'Pato Donald', 0, 0.1, 0, 0, 0),
+(30, 'Rick Sánchez\r\n', 0, 0, 0, 0, 0),
+(31, 'Homero Simpson', 0, 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
