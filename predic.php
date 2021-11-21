@@ -1,100 +1,119 @@
 <?php
 
+$nodopredic = $nodo * 2;
+$nodohermano = $nodopredic + 1;
+$probabilidad = prediction($nodopredic, $nodohermano)[1];;
+$personaje = prediction($nodopredic, $nodohermano)[0];
 
-// while ($pregunta == TRUE) {
-        
-//     if ($nodo % 2 == 0) {
-        $nodo = $nodo * 2;
-        $nodohermano = $nodo + 1;
-        $personaje = prediction($nodo,$nodohermano);
-
-//     } else {
-//         $nodo = $nodo * 2 + 1;
-//         // costoimpar($nodo);
-//     }
-// }
-
-function prediction($nodo,$nodohermano)
+function prediction($nodo, $nodohermano)
 {
+    $cont = 0;
+    $probabilidad = 1;
+    $consulta1 = consulta($nodo);
+    $consulta2 = consulta($nodohermano);
+    $costonodo = $consulta1[0];
+    $costohermano = $consulta2[0];
 
-   $consulta1 = consulta($nodo);
-   $consulta2 = consulta($nodohermano);
-   $costonodo = $consulta1[0];
-   $costohermano = $consulta2[0];
-   echo $costonodo.'-'. $costohermano;
-
-    while(($consulta1[1] || $consulta2[1])){
-
-        if($costonodo < $costohermano){
+    while (($consulta1[1] || $consulta2[1])) {
+        $cont++;
+        if ($costonodo > $costohermano) {
+            $nodomayor = $nodo;
+            $probabilidadMayor = $consulta1[4];
+        } else {
             $nodomayor = $nodohermano;
+            $probabilidadMayor = $consulta2[4];
         }
-        else{
-            $nodomayor = $nodo;     
-        }
+        echo '<br>' . $probabilidad . 'X' . $probabilidadMayor;
+        $probabilidad = abs($probabilidad * $probabilidadMayor);
+        echo ' =' . $probabilidad;
 
-        if(($consulta1[1]==false) || ($consulta2[1] == false)){
-            if($consulta1[1] == false){
-                if($nodo == $nodomayor){
+        echo '<p class="arbol"> <b>Costo: </b>' . $costonodo . ' <b> Nodo: </b> ' . $consulta1[3] . ' <--->  <b>Costo: </b>' . $costohermano . '<b> Nodo: </b>' . $consulta2[3] . '</p> contador: ' . $cont . 'Probabilidad Mayor:' . $probabilidadMayor;
+        if (($consulta1[1] == false) || ($consulta2[1] == false)) {
+            if ($consulta1[1] == false) {
+                if ($nodo == $nodomayor) {
                     break;
-                }
-                else{
+                } else {
                     $nodo = $nodo + 1;
                 }
- 
-            }
-            else{
+            } else {
 
-                if($nodohermano == $nodomayor){
+                if ($nodohermano == $nodomayor) {
 
                     break;
-                }
-                else{
+                } else {
                     $nodo = $nodo - 1;
                 }
             }
-
         }
 
         $nodo = $nodomayor * 2;
         $nodohermano = $nodo + 1;
-        
+
         $consulta1 = consulta($nodo);
         $consulta2 = consulta($nodohermano);
         $costonodo = $consulta1[0];
         $costohermano = $consulta2[0];
-        
-        echo '<br>'. $costonodo.'-'. $costohermano. '<br>'; 
-
     }
-    
-    if($nodo == $nodomayor){
+    // $cont++;
+    if ($costonodo > $costohermano) {
         $personaje = $consulta1[2];
-
-    }
-    else{
+        $probabilidad = $probabilidad - 1;
+    } else {
         $personaje = $consulta2[2];
+        $probabilidad = $probabilidad - 1;
     }
-    return $personaje;
+    if ($probabilidad == 0) {
+        echo '<br>entroooo: ' . $probabilidad;
+        $probabilidad = abs(consultaProbPersonaje($personaje));
+    }
+    echo '<br>Probabilidad TOTAL: ' . $probabilidad;
+
+
+    $resultados = [$personaje, abs($probabilidad)];
+
+    return $resultados;
 }
 
 function consulta($nodoconsulta)
 {
     require 'conexion.php';
 
-    $consulta = 'SELECT costo,pregunta,texto FROM arbol WHERE nodo=' . $nodoconsulta . ';';
+    $consulta = 'SELECT costo,pregunta,texto,nodo,probabilidad FROM arbol WHERE nodo=' . $nodoconsulta . ';';
     $array = [];
     if ($resultado = mysqli_query($db, $consulta)) {
         if ($resultado->num_rows === 0) {
             echo 'error - el nodo no existe :' . $nodoconsulta;
         } else {
 
-            while ($fila = mysqli_fetch_row($resultado)) { 
-                // $costo = $fila[0];
-                // $pregunta = $fila[1];
-                $array=[$fila[0], $fila[1],$fila[2]];
+            while ($fila = mysqli_fetch_row($resultado)) {
+
+                $array = [$fila[0], $fila[1], $fila[2], $fila[3], $fila[4]];
             }
         }
     }
+
     // echo $array[1];
     return $array;
+}
+function consultaProbPersonaje($nombre)
+{
+    require 'conexion.php';
+
+    $consulta = 'SELECT probabilidad FROM arbol WHERE texto="' . $nombre . '";';
+    $array = [];
+
+    if ($resultado = mysqli_query($db, $consulta)) {
+        if ($resultado->num_rows === 0) {
+            echo 'error - el nodo no existe :' . $nodoconsulta;
+        } else {
+
+            while ($fila = mysqli_fetch_row($resultado)) {
+
+                $prob = $fila[0];
+            }
+        }
+    }
+
+    // echo $array[1];
+    return $prob;
 }

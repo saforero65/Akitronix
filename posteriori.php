@@ -1,15 +1,17 @@
 <?php
 
 
+function recorrido($nodo)
+{
+    while ($nodo >= 3) {
 
-while ($nodo >= 3) {
-
-    if ($nodo % 2 == 0) {
-        recorridopar($nodo);
-        $nodo = $nodo / 2;
-    } else {
-        recorridoimpar($nodo);
-        $nodo = ($nodo - 1) / 2;
+        if ($nodo % 2 == 0) {
+            recorridopar($nodo);
+            $nodo = $nodo / 2;
+        } else {
+            recorridoimpar($nodo);
+            $nodo = ($nodo - 1) / 2;
+        }
     }
 }
 
@@ -61,7 +63,27 @@ function recorridoimpar($nodo)
     updateCosto((($nodo - 1) / 2), $costo_padre);
 }
 
+function consultaPersonajes()
+{
+    require 'conexion.php';
 
+    $consulta = 'SELECT nodo FROM arbol WHERE pregunta= 0; ';
+    $resultado;
+    $array = [];
+    if ($resultado = mysqli_query($db, $consulta)) {
+        if ($resultado->num_rows === 0) {
+            echo 'error - el nodo no existe :' . $nodoconsulta;
+        } else {
+
+            while ($fila = mysqli_fetch_row($resultado)) {
+                $nodo = $fila[0];
+                recorrido($nodo);
+            }
+        }
+    }
+    // echo $array[1];
+    return $array;
+}
 
 
 function consulta($nodoconsulta)
@@ -104,3 +126,44 @@ function updateCosto($nodoconsulta, $costo)
     }
     $db->close();
 }
+function updateCostoPersonaje($nodoconsulta, $costo)
+{
+    require 'conexion.php';
+    echo  "<h2>" . $nodoconsulta . "</h2>";
+    $sql = "UPDATE arbol SET costo='$costo' WHERE nodo='$nodoconsulta'";
+
+    if ($db->query($sql) === TRUE) {
+        echo "Costo cargado exitosamente del nodo: " . $nodoconsulta;;
+    } else {
+        echo "Error updating record: " . $db->error;
+    }
+    $db->close();
+}
+function consultaCostoPersonaje($nodoconsulta)
+{
+    require 'conexion.php';
+
+    $consulta = 'SELECT costo FROM arbol WHERE nodo=' . $nodoconsulta . ';';
+
+    $resultado;
+    $array = [];
+    if ($resultado = mysqli_query($db, $consulta)) {
+        if ($resultado->num_rows === 0) {
+            echo 'error - el nodo no existe :' . $nodoconsulta;
+        } else {
+
+            while ($fila = mysqli_fetch_row($resultado)) {
+
+                $costo = $fila[0];
+            }
+        }
+    }
+    // echo $array[1];
+    return $costo;
+}
+$costoPersonaje = consultaCostoPersonaje($nodo);
+$costoPersonaje = $costoPersonaje + 1;
+
+updateCostoPersonaje($nodo, $costoPersonaje);
+
+consultaPersonajes();

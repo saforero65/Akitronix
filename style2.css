@@ -17,6 +17,21 @@ h2 {
     text-align: center;
 }
 
+.info_arbol {
+    display: block;
+    text-align: center;
+    /* visibility: hidden; */
+}
+
+.none {
+    display: none;
+}
+
+.arbol {
+    margin: 0;
+    padding: 0;
+}
+
 div {
     width: 50%;
     display: flex;
