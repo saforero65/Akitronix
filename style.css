@@ -1,18 +1,19 @@
 body {
-    background-color: #ebebeb !important;
-    color: #989898;
-    color: red;
+    background-color: #cacaca !important;
+    color: #ffffff;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-
-
-h1 {
+h2 {
     position: relative;
     text-align: center;
     width: 100vw;
-    /* color: #000; */
-    color: blue;
+    color: rgb(32, 32, 32);
+    font-family: 'Oxygen', sans-serif;
+    /* font-style: bold; */
 }
 
 .thumb, .btn {
@@ -69,14 +70,11 @@ img.zoom {
     animation: aparecer 3s;
 }
 
-
-
 @keyframes aparecer {
     from {
         opacity: 0;
         transform: scale(0.5);
     }
-
     to {
         opacity: 1;
         transform: scale(1);
@@ -88,3 +86,81 @@ a {
     padding: .5rem 1rem !important;
     font-size: 1.5rem !important;
 }
+
+.images{
+    /* border: solid 2px blueviolet; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 180%;
+    height: 50%;
+    margin-top: 10px;
+}
+
+.images img{
+    /* border: solid 2px blue; */
+    /* margin: 2px; */
+    margin-left: 10px;
+    max-height: 22%;
+    max-width: 5%;
+}
+.images img:hover{
+    transform: scale(2.5);
+    transition: 450ms;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+header {
+    width: 100%;
+    padding: 0 5rem;
+    background-color: #050505;
+    display: flex;
+    align-items: center;
+    border-radius: 0px;
+    color: #ddd;
+    justify-content: space-between;
+    height: 60px;
+  }
+  header h1 {
+    font-size: 1.5rem;
+  }
+  .cont{
+    height: 100%;
+    width: 55%;
+    /* border: solid 5px palevioletred; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+.text{
+    padding: 2%;
+}
+.overflow-auto{
+    padding: 1rem;
+    max-height: 10rem;
+  
+  }
+  .modal-content{
+    color: #000;
+  }
+  .modal-body a{
+      color: #000;
+      font-size: 5px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 50px;
+      /* background-color: aqua; */
+  }
+  .modal-body img:hover{
+        height: 36px;
+        opacity: 90%;
+    }
+    .bot{
+        /* border: solid 4px gold; */
+        height: 60px;
+        display: flex;
+        /* flex-direction: column; */
+        justify-content: center;
+        align-items: center;
+  
+    }
