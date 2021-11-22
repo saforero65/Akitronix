@@ -2,26 +2,29 @@
 
 $nodopredic = $nodo * 2;
 $nodohermano = $nodopredic + 1;
-$probabilidad = prediction($nodopredic, $nodohermano)[1];;
-$personaje = prediction($nodopredic, $nodohermano)[0];
+$prediccion = prediction($nodopredic, $nodohermano);
+$probabilidad = $prediccion[1];
+$personaje = $prediccion[0];
 
 function prediction($nodo, $nodohermano)
 {
     $cont = 0;
-    $probabilidad = 1;
+
     $consulta1 = consulta($nodo);
     $consulta2 = consulta($nodohermano);
     $costonodo = $consulta1[0];
     $costohermano = $consulta2[0];
-
+    $probabilidad = 1;
     while (($consulta1[1] || $consulta2[1])) {
         $cont++;
         if ($costonodo > $costohermano) {
             $nodomayor = $nodo;
             $probabilidadMayor = $consulta1[4];
+            // $probabilidad = $probabilidadMayor;
         } else {
             $nodomayor = $nodohermano;
             $probabilidadMayor = $consulta2[4];
+            // $probabilidad = $probabilidadMayor;
         }
         echo '<br>' . $probabilidad . 'X' . $probabilidadMayor;
         $probabilidad = abs($probabilidad * $probabilidadMayor);
@@ -64,9 +67,10 @@ function prediction($nodo, $nodohermano)
     }
     if ($probabilidad == 0) {
         echo '<br>entroooo: ' . $probabilidad;
-        $probabilidad = abs(consultaProbPersonaje($personaje));
+        $probabilidad = (consultaProbPersonaje($personaje));
+        $probabilidad = ($probabilidad);
     }
-    echo '<br>Probabilidad TOTAL: ' . $probabilidad;
+    echo '<br>1 Probabilidad TOTAL: ' . abs($probabilidad);
 
 
     $resultados = [$personaje, abs($probabilidad)];

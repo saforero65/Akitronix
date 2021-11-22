@@ -3,7 +3,7 @@
 
 function recorrido($nodo)
 {
-    while ($nodo >= 3) {
+    while ($nodo >= 2) {
 
         if ($nodo % 2 == 0) {
             recorridopar($nodo);

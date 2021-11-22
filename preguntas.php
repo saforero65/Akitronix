@@ -85,25 +85,27 @@
             require 'sumaPersonajes.php';
             require 'posteriori.php';
             ?>
+
         </div>
     <?php
 
-        $nodo = 0;
-        $nodoSi = 0;
-        $nodoNo = 0;
+        $nodo = 1;
+        $nodoSi = 1;
+        $nodoNo = 1;
+        echo '<a   class="btn btn-danger" href="preguntas.php?n=' . $nodo . '">REINICIAR</a>';
     }
-    ?>
 
+    ?>
     <p>Estoy un <span><?php echo ($probabilidad * 100) . '%'; ?></span> seguro que estas pensando en <span> <?php echo $personaje; ?> </span>
     </p>
     <?php
     echo "   <span>" . 'Costo del Nodo: ' . $costo . " </span>";
-    echo "   <span>" . 'Probabilidad de que responda que si: '  . $probabilidad . " </span>";
+    echo "   <span>" . 'Probabilidad de que responda que si: '  . $elecciones / $personas . " </span>";
     echo "   <span>" . 'Contador de SI: '  . $elecciones . " </span>";
     echo "   <span>" . 'Contador personas: '  . $personas . " </span>";
     ?>
-
     <b> </b>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script type="text/javascript">

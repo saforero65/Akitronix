@@ -88,7 +88,7 @@ function updateProbabilidad($nodoconsulta, $probabilidad)
     $db->close();
 }
 
-consultaProbabilidad($nodo);
+$probailidadnodo = consultaProbabilidad($nodo)[2];
 if ($pregunta == false) {
     consultaProbabilidadTodo();
 }
